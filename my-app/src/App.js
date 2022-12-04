@@ -3,6 +3,9 @@ import './App.css';
 import { Button, Form, Input } from 'antd';
 import React, { useState, Component } from 'react';
 import Select from "react-select";
+import {Chart, ArcElement} from 'chart.js'
+import { Pie } from "react-chartjs-2";
+Chart.register(ArcElement);
 const layout = {
   labelCol: {
     span: 8,
@@ -122,6 +125,23 @@ function CalcTaxes() {
   const [person, setPerson] = useState("single");
   const [income, setIncome] = useState(0);
   const [afterTax, setAfterTax] = useState();
+  const [chartData, setChartData] = useState({
+  labels: [
+    'Red',
+    'Blue',
+    'Yellow'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [300, 50, 100],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+    hoverOffset: 4
+  }]
+});
     const onFinish = () => {
         console.log(income)
         const temp = income.replace(/,/g,'');
@@ -133,6 +153,8 @@ function CalcTaxes() {
         const rates = currMap["percents"];
         const salaries = currMap[marrStatus];
         for (let i = 1; i < salaries.length; i++) {
+          console.log(i);
+          console.log(taxes);
           if (intIncome >= salaries[i]) {
             taxes += (salaries[i] - salaries[i-1])*rates[i-1];
           } else {
@@ -173,13 +195,16 @@ function CalcTaxes() {
             medicare = intIncome * .0145;
           }
         }
+        console.log("taxes");
         console.log(taxes);
+        console.log("socSec")
         console.log(socSec);
+        console.log("medicare");
         console.log(medicare);
         setAfterTax(taxes + socSec + medicare);
     };
   return (
-
+    <>
     <Form {...layout} name="control-ref" style={{width:'100%'}}>
 
     <p>Yearly Income</p>
@@ -230,12 +255,24 @@ function CalcTaxes() {
         <Button type="primary"  htmlType="submit" onClick={() => onFinish()}>
           Submit
         </Button>
-        <Button htmlType="button">
-          Reset
-        </Button>
       </Form.Item>
         {afterTax}
     </Form>
+    <div className="chart-container" style={{width: '50%'}}>
+      <h2 style={{ textAlign: "center" }}>Pie Chart</h2>
+      <Pie
+        data={chartData}
+        options={{
+          plugins: {
+            title: {
+              display: true,
+              text: "Users Gained between 2016-2020"
+            }
+          }
+        }}
+      />
+    </div>
+    </>
   );
 }
 
