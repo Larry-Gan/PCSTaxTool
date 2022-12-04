@@ -3,9 +3,10 @@ import './App.css';
 import { Button, Form, Input } from 'antd';
 import React, { useState, Component } from 'react';
 import Select from "react-select";
-import {Chart, ArcElement} from 'chart.js'
+import {Chart, ArcElement, Tooltip} from 'chart.js'
 import { Pie } from "react-chartjs-2";
 Chart.register(ArcElement);
+Chart.register([Tooltip])
 const layout = {
   labelCol: {
     span: 8,
@@ -132,7 +133,6 @@ function CalcTaxes() {
     'Yellow'
   ],
   datasets: [{
-    label: 'My First Dataset',
     data: [300, 50, 100],
     backgroundColor: [
       'rgb(255, 99, 132)',
@@ -202,6 +202,20 @@ function CalcTaxes() {
         console.log("medicare");
         console.log(medicare);
         setAfterTax(taxes + socSec + medicare);
+        setChartData({
+          labels: [
+            'Red',
+            'Blue',
+          ],
+          datasets: [{
+            data: [300, 50],
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(54, 162, 235)'
+            ],
+            hoverOffset: 4
+          }]
+        });
     };
   return (
     <>
@@ -259,7 +273,6 @@ function CalcTaxes() {
         {afterTax}
     </Form>
     <div className="chart-container" style={{width: '50%'}}>
-      <h2 style={{ textAlign: "center" }}>Pie Chart</h2>
       <Pie
         data={chartData}
         options={{
