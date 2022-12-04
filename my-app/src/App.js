@@ -60,6 +60,26 @@ const mappings2018 = {
   "together": [0, 19050, 77400, 165000, 315000, 400000, 600000],
   "head": [0, 13600, 51800, 82500, 157500, 200000, 500000],
   "ss": 128400,
+  "budget": 6300000000000,
+  "budget_percents": [.1678,
+.1646,
+.1577,
+.1103,
+.0868,
+.0848,
+.0685,
+.0326,
+.0209,
+.0205,
+.0184,
+.0134,
+.0122,
+.0121,
+.0090,
+.0060,
+.0045,
+.0029,
+.0069,]
 };
 
 const mappings2019 = {
@@ -69,6 +89,27 @@ const mappings2019 = {
   "together": [0, 19400, 78950, 168400, 321450, 408200, 612350],
   "head": [0, 13850, 52850, 84200, 160700, 204100, 510300],
   "ss": 132900,
+  "budget": 6600000000000,
+  "budget_percents": [
+.1756,
+.1651,
+.1597,
+.1098,
+.0859,
+.0884,
+.0608,
+.0328,
+.0195,
+.0235,
+.0181,
+.0092,
+.0110,
+.0124,
+.0079,
+.0059,
+.0061,
+.0037,
+.0048,]
 };
 
 const mappings2020 = {
@@ -105,6 +146,28 @@ const yearToTax = {
   "2021" : mappings2021,
   "2022" : mappings2022,
 }
+
+const budgetGroup = [
+  "Medicare",
+  "Social Security",
+  "National Defense",
+  "Health",
+  "Income Security",
+  "Net Interest",
+  "General Government",
+  "Veterans Benefits and Services",
+  "International Affairs",
+  "Education, Training, Employment, Social Services",
+  "Transportation",
+  "Community and Regional Development",
+  "Natural Resources and Environment",
+  "Administration of Justice",
+  "Commerce and Housing Credit",
+  "General Science, Space, Technology",
+  "Agriculture",
+  "Energy",
+  "Unreported",
+]
 
 
 const handleChange = (value) => {
