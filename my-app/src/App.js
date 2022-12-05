@@ -6,7 +6,7 @@ import Select from "react-select";
 import {Chart, ArcElement, Tooltip} from 'chart.js'
 import { Pie } from "react-chartjs-2";
 Chart.register(ArcElement);
-Chart.register([Tooltip])
+Chart.register([Tooltip]);
 const layout = {
   labelCol: {
     span: 8,
@@ -176,6 +176,13 @@ const budgetGroup = [
 const handleChange = (value) => {
   console.log(`selected ${value}`);
 };
+
+/*let chartColors = [];
+for (let i = 0; i < budgetGroup.length; i++) {
+    let o = Math.round, r = Math.random, s = 255;
+  chartColors.push('rgba(' + o(Math.min(r() + .04, 1)*s) + ',' + o(Math.min(r() + .04, 1)*s) + ',' + o(Math.min(r() + .04, 1)*s) + ',' + r().toFixed(1) + ')');
+}
+console.log(chartColors);*/
 
 
 function CalcTaxes() {
