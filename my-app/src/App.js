@@ -185,22 +185,34 @@ function CalcTaxes() {
   onReset = () => {
     this.formRef.current.resetFields();
   };*/
-  const [year, setYear] = useState("2018");
+  const [year, setYear] = useState({"value":"2018"});
   const [person, setPerson] = useState("single");
   const [income, setIncome] = useState(0);
   const [afterTax, setAfterTax] = useState();
   const [chartData, setChartData] = useState({
-  labels: [
-    'Red',
-    'Blue',
-    'Yellow'
-  ],
+  labels: budgetGroup,
   datasets: [{
-    data: [300, 50, 100],
+    data: [1057140000000, 1036980000000, 993510000000, 694890000000, 546840000000, 534240000000, 431550000000.00006, 205379999999.99997, 131669999999.99998, 129150000000, 115920000000, 84420000000, 76860000000, 76230000000, 56699999999.99999, 37800000000, 28349999999.999996, 18270000000, 43470000000],
     backgroundColor: [
       'rgb(255, 99, 132)',
       'rgb(54, 162, 235)',
-      'rgb(255, 205, 86)'
+      'rgb(255, 205, 86)',
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)',
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)',
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)',
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)',
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)',
+      'rgb(255, 99, 132)',
     ],
     hoverOffset: 4
   }]
@@ -215,6 +227,7 @@ function CalcTaxes() {
         const currMap = yearToTax[year["value"]];
         const rates = currMap["percents"];
         const salaries = currMap[marrStatus];
+        const govtSpendingPercents = currMap["budget_percents"];
         for (let i = 1; i < salaries.length; i++) {
           console.log(i);
           console.log(taxes);
@@ -265,20 +278,38 @@ function CalcTaxes() {
         console.log("medicare");
         console.log(medicare);
         setAfterTax(taxes + socSec + medicare);
+        let yourPayments = [medicare, socSec]
+        for (let i = 2; i < govtSpendingPercents.length; i++) {
+            yourPayments.push(govtSpendingPercents[i] * taxes);
+        }
         setChartData({
-          labels: [
-            'Red',
-            'Blue',
+        labels: budgetGroup,
+        datasets: [{
+          data: yourPayments,
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(255, 99, 132)',
           ],
-          datasets: [{
-            data: [300, 50],
-            backgroundColor: [
-              'rgb(255, 99, 132)',
-              'rgb(54, 162, 235)'
-            ],
-            hoverOffset: 4
-          }]
-        });
+          hoverOffset: 4
+        }]
+      });
     };
   return (
     <>
@@ -336,6 +367,7 @@ function CalcTaxes() {
         {afterTax}
     </Form>
     <div className="chart-container" style={{width: '50%'}}>
+    <h2>Budget chart for {year["value"]}</h2>
       <Pie
         data={chartData}
         options={{
